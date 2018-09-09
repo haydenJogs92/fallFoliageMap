@@ -1,0 +1,6 @@
+npm run dev - run live reload in dev mode
+
+ npm run live - run live reload in prod mode
+
+
+ npm run build - build production 

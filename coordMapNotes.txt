@@ -1,0 +1,256 @@
+
+
+Initial
+
+Top Left
+35.77716,-83.97477
+
+
+Top Right
+35.79178,-83.02875
+
+
+Bottom Left
+35.44641,-83.99194
+
+Bottom Right
+35.44494,-83.04068
+
+
+
+Refined Square
+
+Top Left
+35.77716,-83.97477
+
+
+Top Right
+35.77716,-83.02875
+
+
+Bottom Left
+35.44641,-83.97477
+
+Bottom Right
+35.44641,-83.02875
+
+
+var top = 35.77716
+var bottom = 35.44641
+var left = -83.97477
+var right = -83.02875
+
+
+Top to bottom
+0.3307500000000019
+
+
+
+Right to left
+0.9460200000000043
+
+
+createCoordBlock( 35.77716, 35.44641, -83.97477, -83.02875 )
+
+function createCoordBlock( top, bottom, left, right )
+{
+	var coordArr = [];
+	var squares = 10; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var latDiffUnit = ( top - bottom ) / squares;
+	var longDiffUnit = ( left - right ) / squares;
+
+	var coordLat = bottom;
+	var coordLng = left;
+
+	//bottom to top
+	for ( var i = 0; i < squares; i++ )
+	{
+
+	coordLng = coordLng + longDiffUnit;
+	//left to right
+	for ( var j = 0; j < 2; j++ )
+	{
+		coordLat = coordLat + latDiffUnit;
+		coordArr.push( { lat: coordLat, lng: coordLng } )
+	}
+
+
+	}
+	console.log( coordArr );
+}
+
+
+function createCoordBlock( top, bottom )
+{
+	var coordArr = [];
+	var squares = 10; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var longDiffUnit = ( top - bottom ) / squares;
+
+	//bottom to top
+	for ( var i = 0; i <= squares; i++ )
+	{
+	var coordLng = bottom;
+
+	coordLng = ( coordLng + i * longDiffUnit ).toFixed(5);
+	console.log(coordLng)
+
+	}
+
+
+}
+
+
+
+this method seems correct:
+function createCoordBlock( top, bottom, left, right  )
+{
+
+	var coordArr = [];
+	var squares = 10; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var latDiffUnit = ( top - bottom ) / squares;
+	var longDiffUnit = ( left - right ) / squares;
+
+	//bottom to top
+	for ( var i = 0; i < squares; i++ )
+	{
+		var coordLat = bottom;
+		var coordLng = left;
+
+		coordLat = parseFloat( ( coordLat + i * latDiffUnit ).toFixed(5) );
+		//left to right
+		for ( var j = 0; j < squares; j++ )
+		{
+			coordLng = parseFloat( ( coordLng - longDiffUnit ).toFixed(5) );
+			coordArr.push( { lng: coordLng, lat: coordLat } )
+		}
+
+	}
+	console.log(JSON.stringify( coordArr ))
+
+}
+
+
+to produce 500 data points:
+function createCoordBlock( top, bottom, left, right  )
+{
+
+	var coordArr = [];
+	var squareOne = 20; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var squareTwo = 25; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var latDiffUnit = ( top - bottom ) / squareOne;
+	var longDiffUnit = ( left - right ) / squareTwo;
+
+	//bottom to top
+	for ( var i = 0; i < squareOne; i++ )
+	{
+		var coordLat = bottom;
+		var coordLng = left;
+
+		coordLat = parseFloat( ( coordLat + i * latDiffUnit ).toFixed(5) );
+		//console.log(coordLat)
+		for ( var j = 0; j < squareTwo; j++ )
+		{
+			coordLng = parseFloat( ( coordLng - longDiffUnit ).toFixed(5) );
+			coordArr.push( { lng: coordLng,  lat: coordLat } )
+		}
+
+	}
+	console.log(JSON.stringify(coordArr))
+
+}
+
+
+
+//produce 2000 data points, and separate output into 4 parts
+function createCoordBlock( top, bottom, left, right  )
+{
+
+	var coordArr = [];
+	var squareOne = 40; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var squareTwo = 50; //number of squares on x,y axis, ex: 10 squares means 100 coordinates
+	var latDiffUnit = ( top - bottom ) / squareOne;
+	var longDiffUnit = ( left - right ) / squareTwo;
+
+	//bottom to top
+	for ( var i = 0; i < squareOne; i++ )
+	{
+		var coordLat = bottom;
+		var coordLng = left;
+
+		coordLat = parseFloat( ( coordLat + i * latDiffUnit ).toFixed(5) );
+		//console.log(coordLat)
+		for ( var j = 0; j < squareTwo; j++ )
+		{
+			coordLng = parseFloat( ( coordLng - longDiffUnit ).toFixed(5) );
+			coordArr.push( { lng: coordLng,  lat: coordLat } )
+		}
+
+	}
+
+
+	var createGroupedArray = function(arr, chunkSize) {
+    var groups = [], i;
+    for (i = 0; i < arr.length; i += chunkSize) {
+        groups.push(arr.slice(i, i + chunkSize));
+    }
+    return groups;
+		}
+
+	//chunk the results
+	var groupedArray =	createGroupedArray( coordArr, 500  );
+
+	for ( var i = 0; i < groupedArray.length; i++ )
+	{
+
+	console.log( 'coords ' + i )
+	console.log( JSON.stringify( groupedArray[i] ) );
+
+	}
+
+
+
+
+}
+
+var arr = [ 1,2,3,4,5,6,7,8,9 ];
+
+function createChunk (arr, chunkSize) {
+    var groups = [], i;
+    for (i = 0; i < arr.length; i += chunkSize) {
+        groups.push(arr.slice(i, i + chunkSize));
+    }
+    return groups;
+}
+
+
+
+format the data and feed it into here:
+https://viewer.nationalmap.gov/theme/elevation/#/%23bottom#bottom4
+
+createCoordBlock( 35.77716, 35.44641 )
+
+Initial point of truth
+createCoordBlock( 35.77716, 35.44641, -83.97477, -83.02875 )
+
+
+
+lets make 4 squares within this larger block ( more precision  )
+
+we need to space these - ex: we can't have duplicate coordinates
+doing this will change magic numbers ( how we calculate block size )
+
+Top Left Quad
+createCoordBlock( 35.77716, 35.611785, -83.97477, -83.50176  )
+
+Top Right Quad - offset by
+createCoordBlock( 35.611785, 35.44641, -83.97477, -83.50176  )
+
+Bottom Right Quad
+
+Lower Right Quad
+
+
+
+
+There might be a limit to how many objects we can display on the map
+perhaps 1000 https://developers.google.com/maps/documentation/javascript/kmllayer?csw=1

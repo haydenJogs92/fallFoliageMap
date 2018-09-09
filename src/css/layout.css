@@ -1,0 +1,65 @@
+
+
+html, body {
+max-width: 100%;
+overflow-x: hidden;
+}
+
+.sliderStyle  {margin-top:20px}
+.opactiyControlStyle  {margin-top:50px}
+
+
+.mapSize {
+    min-height: '';
+    height: 375px;
+    width: 100%;
+    margin: auto;
+    background-Color:#eff0f1;
+  }
+
+  .textLeft {text-align:left}
+
+  .colorBlockRow{
+    width:100%;
+    height:40px;
+    line-height:30px;
+    display:flex;
+    align-items:center}
+
+
+    .colorBlock{
+      width:30px;
+      height:30px;
+      display:inline-block;
+      margin-right: 10px;
+    }
+
+.headerH1{
+  text-align:center;
+
+}
+
+.pageContent
+{
+  width:100%;
+  max-width:100%;
+  margin:auto;
+  text-align:center;
+}
+
+.pageControls
+{
+  max-width:700px;
+  margin:auto;
+  width:100%;
+}
+
+.colorGuide{
+  text-align:left
+}
+
+.sideMargin
+{
+      margin-right: 8px;
+      margin-left: 8px;
+}
