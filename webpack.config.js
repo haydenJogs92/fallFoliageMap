@@ -1,6 +1,8 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
+var destination = debug ? __dirname + "/src/" : __dirname + "/build/";
+console.log("building to this destination: " + destination);
 
 //npm run dev, npm run live, npm run prod
 //https://hackernoon.com/optimising-your-application-bundle-size-with-webpack-e85b00bab579
@@ -46,7 +48,7 @@ module.exports = {
   },
   output: {
     //path: debug ? __dirname + "/src/" : __dirname + "/build/",
-    path: __dirname + "/src/",
+    path: destination,
     filename: "client.min.js"
   },
   plugins: debug ? [] : [
@@ -56,6 +58,3 @@ module.exports = {
     new webpack.DefinePlugin({'process.env': {'NODE_ENV': JSON.stringify('production')}})
   ],
 };
-
-var destination = debug ? __dirname + "/src/" : __dirname + "/build/";
-console.log("building to this destination: " + destination);
